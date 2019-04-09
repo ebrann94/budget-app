@@ -1,14 +1,17 @@
 import React from 'react';
+import * as Redux from 'redux';
 import { connect } from 'react-redux';
 import { TransactionsState, Transaction } from '../../store/types';
+import { deleteTransaction } from '../../store/ExpenseActions';
 
-interface props {
+interface Props {
     type: string,
     income: Transaction[],
-    outgoings: Transaction[]
+    outgoings: Transaction[],
+    dispatch: Redux.Dispatch
 }
 
-const TransactionList = (props: props) => {
+const TransactionList = (props: Props) => {
     let transactions;
     if (props.type == 'inc') {
         transactions = props.income;
@@ -24,7 +27,10 @@ const TransactionList = (props: props) => {
                     return (
                         <div key={transaction.id}>
                             <p>{transaction.description}</p>
-                            <p>{transaction.amount}</p>
+                            <p>£{transaction.amount}</p>
+                            <button onClick={() => {
+                                props.dispatch(deleteTransaction(props.type, transaction.id));
+                            }}>Delete</button>
                         </div>
                     )
                 })

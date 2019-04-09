@@ -1,31 +1,7 @@
-import { TransactionAction } from './types';
+import { TransactionActionTypes } from './types';
 import uuid from 'uuid';
 
-export const addIncome = (description: string, amount: number): TransactionAction => {
-    return {
-        type: 'ADD_INCOME',
-        transaction: {
-            id: uuid(),
-            description,
-            amount,
-            createdAt: Date.now()
-        }
-    }
-}
-
-export const addOutgoing = (description: string, amount: number): TransactionAction => {
-    return {
-        type: 'ADD_OUTGOING',
-        transaction: {
-            id: uuid(),
-            description,
-            amount,
-            createdAt: Date.now()
-        }
-    }
-}
-
-export const addTransaction = (type: string, description: string, amount: number): TransactionAction => {
+export const addTransaction = (type: string, description: string, amount: number): TransactionActionTypes => {
     const transaction = {
         id: uuid(),
         description,
@@ -36,17 +12,28 @@ export const addTransaction = (type: string, description: string, amount: number
     if (type == 'inc') {
         return {
             type: 'ADD_INCOME',
-            transaction
+            transaction,
+            id: undefined
         }
     } else {
         return {
             type: 'ADD_OUTGOING',
-            transaction
+            transaction,
+            id: undefined
         }
     } 
 }
 
-export const removeTransaction = (id: string) => ({
-    type: 'REMOVE_TRANSACTION',
-    id
-});
+export const deleteTransaction = (type: string, id: string): TransactionActionTypes => {
+    if (type == 'inc') {
+        return {
+            type: 'DELETE_INCOME',
+            id
+        }
+    } else {
+        return {
+            type: 'DELETE_OUTGOING',
+            id
+        }
+    }
+};

@@ -1,6 +1,6 @@
 import React, {FormEvent, ChangeEvent} from 'react';
 import { connect } from 'react-redux';
-import { addIncome } from '../store/ExpenseActions';
+import { addTransaction } from '../store/ExpenseActions';
 import Redux from 'redux';
 
 interface props {
@@ -13,7 +13,6 @@ interface state {
 }
 
 class AddTransactionPage extends React.Component<props, {}> {
-    
     state: state = {
         description: '',
         amount: 0
@@ -31,7 +30,10 @@ class AddTransactionPage extends React.Component<props, {}> {
 
     handleAddExpense = (e: FormEvent) => {
         e.preventDefault();
-        this.props.dispatch(addIncome(this.state.description, this.state.amount));
+        const target = e.target as HTMLFormElement;
+        const type = target.type.value;
+
+        this.props.dispatch(addTransaction(type, this.state.description, this.state.amount));
     }
 
     componentDidUpdate() {
@@ -45,17 +47,15 @@ class AddTransactionPage extends React.Component<props, {}> {
                 <form onSubmit={this.handleAddExpense}>
                     <input type="text" name="description" onChange={this.handleInputChange}/>
                     <input type="number" name="amount" onChange={this.handleInputChange} />
-                    <input type="submit" value="Add Expense" />
+                    <select name="type">
+                        <option value="inc">Income</option>
+                        <option value="out">Outgoing</option>
+                    </select>
+                    <input type="submit" value="Add" />
                 </form>
             </div>
         )
     }
 }
-
-// const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
-//     return {
-//         addExpense: dispatch(addExpense(null, null))
-//     }
-// }
 
 export default connect()(AddTransactionPage);

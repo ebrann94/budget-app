@@ -1,8 +1,3 @@
-export interface TransactionsState {
-    income: Transaction[],
-    outgoings: Transaction[]
-}
-
 export interface Transaction {
     id: string,
     description: string,
@@ -10,7 +5,19 @@ export interface Transaction {
     createdAt: number 
 }
 
-export interface TransactionAction {
+export interface TransactionsState {
+    income: Transaction[],
+    outgoings: Transaction[]
+}
+
+export interface AddTransactionAction {
     type: string,
     transaction: Transaction
 }
+
+export interface DeleteTransactionAction {
+    type: string,
+    id: string
+}
+
+export type TransactionActionTypes = AddTransactionAction | DeleteTransactionAction;

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import './index.css';
 import App from './App';
 import reducer from './store/reducers/transactionsReducer';
-import { addIncome, addTransaction } from './store/ExpenseActions';
+import { addTransaction } from './store/ExpenseActions';
 
 const store = createStore(reducer);
 
