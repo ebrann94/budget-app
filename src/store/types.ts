@@ -1,11 +1,16 @@
-export interface Expense {
+export interface TransactionsState {
+    income: Transaction[],
+    outgoings: Transaction[]
+}
+
+export interface Transaction {
     id: string,
     description: string,
     amount: number,
     createdAt: number 
 }
 
-export interface AddExpenseAction {
+export interface TransactionAction {
     type: string,
-    expense: Expense
+    transaction: Transaction
 }

@@ -5,15 +5,16 @@ import { Provider } from 'react-redux'
 
 import './index.css';
 import App from './App';
-import reducer from './store/reducers/expensesReducer';
-import { addExpense } from './store/ExpenseActions';
+import reducer from './store/reducers/transactionsReducer';
+import { addIncome, addTransaction } from './store/ExpenseActions';
 
 const store = createStore(reducer);
 
 store.subscribe(() => {
     console.log(store.getState())
 });
-store.dispatch(addExpense('Gas Bill', 200));
+store.dispatch(addTransaction('out', 'Gas Bill', 200));
+store.dispatch(addTransaction('inc', 'Wage', 1500));
 
 const jsx = (
     <Provider store={store}>
