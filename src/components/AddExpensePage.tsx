@@ -1,6 +1,6 @@
 import React, {FormEvent, ChangeEvent} from 'react';
 import { connect } from 'react-redux';
-import { addTransaction } from '../store/ExpenseActions';
+import { addTransaction } from '../store/TransactionActions';
 import Redux from 'redux';
 
 interface props {
