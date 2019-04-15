@@ -7,7 +7,9 @@ export interface Transaction {
 
 export interface TransactionsState {
     income: Transaction[],
-    outgoings: Transaction[]
+    outgoings: Transaction[],
+    totalIncome: number,
+    totalOutgoings: number
 }
 
 export interface AddTransactionAction {

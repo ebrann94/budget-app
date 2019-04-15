@@ -7,20 +7,20 @@ import TransactionItem from './TransactionItem';
 
 interface Props {
     type: string,
-    transactions: Transaction[],
-    dispatch: Redux.Dispatch
+    transactions: Transaction[]
 }
 
-const TransactionList = (props: Props) => {
+const TransactionList = ({ type, transactions }: Props) => {
 
     return (
         <div>
-            <h3>{props.type == 'inc' ? 'Income' : 'Outgoings'}</h3>
+            <h3>{type == 'inc' ? 'Income' : 'Outgoings'}</h3>
             {
-                props.transactions.map(transaction => {
+                transactions.map(transaction => {
                     return (
                         <TransactionItem 
-                            type={props.type}
+                            key={transaction.id}
+                            type={type}
                             transaction={transaction}
                         />
                     )

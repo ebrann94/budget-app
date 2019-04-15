@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dispatch } from 'redux';
-import { connect, ReactReduxContextValue } from 'react-redux';
+import { connect } from 'react-redux';
 
 import { deleteTransaction } from '../../store/TransactionActions';
 import { Transaction } from '../../store/types';

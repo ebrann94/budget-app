@@ -2,21 +2,27 @@ import { TransactionsState, TransactionActionTypes, AddTransactionAction, Delete
 
 const DefaultTransactions: TransactionsState = {
     income: [],
-    outgoings: []
+    outgoings: [],
+    totalIncome: 0,
+    totalOutgoings: 0
 }; 
 
 export default (state: TransactionsState = DefaultTransactions, action: TransactionActionTypes): TransactionsState => {
     console.log(action);
     switch (action.type) {
         case 'ADD_INCOME': 
+            const newIncome = (<AddTransactionAction>action).transaction
             return {
                 ...state,
-                income: state.income.concat((<AddTransactionAction>action).transaction)
+                income: state.income.concat(newIncome),
+                totalIncome: state.totalIncome + newIncome.amount
             }
         case 'ADD_OUTGOING':
+            const newOutgoing = (<AddTransactionAction>action).transaction
             return {
                 ...state,
-                outgoings: state.outgoings.concat((<AddTransactionAction>action).transaction)
+                outgoings: state.outgoings.concat(newOutgoing),
+                totalOutgoings: state.totalOutgoings - newOutgoing.amount
             }
         case 'DELETE_INCOME':
             return {

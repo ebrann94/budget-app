@@ -6,23 +6,27 @@ import { TransactionsState, Transaction } from '../../store/types';
 
 interface IProps {
     income: Transaction[],
-    outgoings: Transaction[]
+    outgoings: Transaction[],
+    totalIncome: number,
+    totalOutgoings: number,
 }
 
-const TransactionListsWrapper = (props: IProps) => {
+const TransactionListsWrapper = ({income, outgoings, totalIncome, totalOutgoings}: IProps) => {
     return (
         <div>
-            <TransactionList type={'inc'} transactions={props.income}/>
-            <TransactionList type={'out'} transactions={props.outgoings}/>
+            <h3>Balance: {totalIncome + totalOutgoings}</h3>
+            <div>
+                <p>Total Income: £{totalIncome}</p>
+                <TransactionList type="inc"transactions={income}/>
+            </div>
+            <div>
+                <p>Total Outgoings: £{totalOutgoings}</p>
+                <TransactionList type="out" transactions={outgoings}/>
+            </div>
         </div>
     )
 }
 
-const mapStateToProps = (state: TransactionsState) => {
-    return {
-        income: state.income,
-        outgoings: state.outgoings
-    }
-}
+const mapStateToProps = (state: TransactionsState) => ({...state});
 
 export default connect(mapStateToProps)(TransactionListsWrapper);
