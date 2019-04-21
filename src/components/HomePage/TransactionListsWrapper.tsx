@@ -6,15 +6,15 @@ import { TransactionsState, Transaction } from '../../store/types';
 
 interface IProps {
     income: Transaction[],
-    outgoings: Transaction[],
-    totalIncome: number,
-    totalOutgoings: number,
+    outgoings: Transaction[]
 }
 
-const TransactionListsWrapper = ({income, outgoings, totalIncome, totalOutgoings}: IProps) => {
+const TransactionListsWrapper = ({income, outgoings}: IProps) => {
+    const totalIncome = income.reduce((acc, current) => Number(acc) + current.amount, 0);
+    const totalOutgoings = outgoings.reduce((acc, current) => acc + current.amount, 0);
     return (
         <div>
-            <h3>Balance: {totalIncome + totalOutgoings}</h3>
+            <h3>Balance: {}</h3>
             <div>
                 <p>Total Income: £{totalIncome}</p>
                 <TransactionList type="inc"transactions={income}/>
