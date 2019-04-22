@@ -11,13 +11,17 @@ interface IProps {
     transaction: Transaction
 }
 
-const TransactionItem = (props: IProps) => {
+const TransactionItem = ({ type, transaction, dispatch}: IProps) => {
+    const date = new Date(transaction.createdAt);
+    const formattedDate = date.toLocaleString('en-gb', { day: '2-digit', month: '2-digit' });
+
     return (
         <div>
-            <p>{props.transaction.description}</p>
-            <p>£{props.transaction.amount}</p>
+            <p>{transaction.description}</p>
+            <p>£{transaction.amount}</p>
+            <p>{formattedDate}</p>
             <button onClick={() => {
-                props.dispatch(deleteTransaction(props.type, props.transaction.id));
+                dispatch(deleteTransaction(type, transaction.id));
             }}>Delete</button>
         </div>
     )
