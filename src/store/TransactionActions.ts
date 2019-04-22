@@ -1,7 +1,7 @@
-import { TransactionActionTypes } from './types';
+import { TransactionActionTypes, TransactionType } from './types';
 import uuid from 'uuid';
 
-export const addTransaction = (type: string, description: string, amount: number): TransactionActionTypes => {
+export const addTransaction = (type: TransactionType, description: string, amount: number): TransactionActionTypes => {
     const transaction = {
         id: uuid(),
         description,

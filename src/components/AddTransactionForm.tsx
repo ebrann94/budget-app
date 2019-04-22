@@ -2,23 +2,22 @@ import React, { FormEvent } from 'react';
 import Redux from 'redux';
 import { connect } from 'react-redux';
 import { addTransaction } from '../store/TransactionActions';
-import { isNumber } from 'util';
+import { TransactionType } from '../store/types';
 
 interface IProps {
-    dispatch: Redux.Dispatch
+    dispatch: Redux.Dispatch,
+    type: TransactionType
 }
 
 interface IState {
     description: string,
-    amount: string,
-    type: string
+    amount: string
 }
 
-class AddTransactionPage extends React.Component<IProps, {}> {
+class AddTransactionForm extends React.Component<IProps, {}> {
     state: IState = {
         description: '',
-        amount: '',
-        type: 'inc'
+        amount: ''
     }
     
     handleInputChange = (e: FormEvent) => {
@@ -36,8 +35,9 @@ class AddTransactionPage extends React.Component<IProps, {}> {
 
         const amount = Number(this.state.amount);
 
-        if (isNumber(amount) && amount != 0) {
-            this.props.dispatch(addTransaction(this.state.type, this.state.description, amount));
+        if (!isNaN(amount) && amount != 0) {
+            this.props.dispatch(addTransaction(this.props.type, this.state.description, amount));
+            this.reset();
         }
 
 
@@ -46,8 +46,7 @@ class AddTransactionPage extends React.Component<IProps, {}> {
     reset = () => {
         this.setState({
             description: '',
-            amount: '',
-            type: 'inc'
+            amount: ''
         });
     }
 
@@ -58,7 +57,6 @@ class AddTransactionPage extends React.Component<IProps, {}> {
     render() {
         return (
             <div>
-                <h1>Add Expense Page</h1>
                 <form onSubmit={this.handleAddExpense}>
                     <input 
                         type="text" 
@@ -70,17 +68,10 @@ class AddTransactionPage extends React.Component<IProps, {}> {
                     <input 
                         type="number" 
                         name="amount" 
+                        placeholder="Amount"
                         onChange={this.handleInputChange}
                         value={this.state.amount} 
                     />
-                    <select 
-                        name="type"
-                        onChange={this.handleInputChange}
-                        value={this.state.type}
-                    >
-                        <option value="inc">Income</option>
-                        <option value="out">Outgoing</option>
-                    </select>
                     <input type="submit" value="Add" />
                 </form>
             </div>
@@ -88,4 +79,4 @@ class AddTransactionPage extends React.Component<IProps, {}> {
     }
 }
 
-export default connect()(AddTransactionPage);
+export default connect()(AddTransactionForm);

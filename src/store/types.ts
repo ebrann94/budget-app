@@ -5,6 +5,8 @@ export interface Transaction {
     createdAt: number 
 }
 
+export type TransactionType = 'inc' | 'out';
+
 export interface TransactionsState {
     income: Transaction[],
     outgoings: Transaction[]

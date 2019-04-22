@@ -6,7 +6,6 @@ const DefaultTransactions: TransactionsState = {
 }; 
 
 export default (state: TransactionsState = DefaultTransactions, action: TransactionActionTypes): TransactionsState => {
-    console.log(action);
     switch (action.type) {
         case 'ADD_INCOME': 
             const newIncome = (<AddTransactionAction>action).transaction

@@ -1,0 +1,9 @@
+.transaction-list-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+}
